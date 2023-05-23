@@ -1,3 +1,4 @@
 requests==2.31.0
 flask==2.3.2
 latloncalc==1.5.3
+pydantic==1.10.8
