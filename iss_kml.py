@@ -19,7 +19,7 @@ def get_footprint_coordinates(lat, lon, footprint):
     num_points = 128
     step = pi * 2 / num_points
     coordinates = ''
-    for i in range(num_points):
+    for i in range(num_points+1):
         angle = step * i
         x = radius * cos(angle)
         y = radius * sin(angle)
