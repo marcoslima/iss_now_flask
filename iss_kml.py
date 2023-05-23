@@ -1,5 +1,6 @@
 from functools import lru_cache
-from math import pi, cos, sin
+
+from latloncalc.latlon import LatLon
 
 
 @lru_cache(maxsize=1)
@@ -10,20 +11,15 @@ def get_kml_template():
     return kml
 
 
-def convert_meters_to_latlon(meters):
-    return meters / 111111
-
-
 def get_footprint_coordinates(lat, lon, footprint):
-    radius = convert_meters_to_latlon(1000 * footprint / 2)
     num_points = 128
-    step = pi * 2 / num_points
+    step = 360 / num_points
     coordinates = ''
-    for i in range(num_points+1):
+    center = LatLon(lat, lon)
+    for i in range(num_points + 1):
         angle = step * i
-        x = radius * cos(angle)
-        y = radius * sin(angle)
-        coordinates += f'{lon + x},{lat + y},0 '
+        p = center.offset(angle, footprint / 2, ellipse='sphere')
+        coordinates += f'{p.lon},{p.lat},0 '
 
     return coordinates
 
