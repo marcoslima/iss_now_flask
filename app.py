@@ -24,7 +24,8 @@ def get_iss_pos():
     # }
     response = requests.get('https://api.wheretheiss.at/v1/satellites/25544')
     data = response.json()
-    return data['longitude'], data['latitude'], data['altitude']*1000
+    return data['longitude'], data['latitude'], data['altitude']*1000, \
+        data['footprint']
 
 
 @app.route('/iss')
@@ -39,9 +40,9 @@ def iss():
     #
     # center_lng = ((east - west) / 3) + west
     # center_lat = ((north - south) / 3) + south
-    long, lat, alt = get_iss_pos()
+    long, lat, alt, footprint = get_iss_pos()
 
-    kml = get_iss_kml(lat, long, alt)
+    kml = get_iss_kml(lat, long, alt, footprint)
 
     return Response(kml, content_type='application/vnd.google-earth.kml+xml')
 
