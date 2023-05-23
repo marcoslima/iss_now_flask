@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+     <Folder>
+         <name>ISS</name>
+         <visibility>1</visibility>
+         <open>1</open>
+         <description>ISS</description>
+         <NetworkLink>
+             <name>ISS now</name>
+             <visibility>1</visibility>
+             <open>1</open>
+             <description>The view-based refresh allows the remote server to calculate
+             the center of your screen and return a placemark.</description>
+             <refreshVisibility>1</refreshVisibility>
+             <flyToView>0</flyToView>
+             <Link>
+                 <href>http://127.0.0.1:5000/iss</href>
+                 <refreshInterval>2</refreshInterval>
+                 <viewRefreshMode>onStop</viewRefreshMode>
+                 <viewRefreshTime>1</viewRefreshTime>
+             </Link>
+         </NetworkLink>
+     </Folder>
+</kml>
