@@ -5,11 +5,16 @@ from iss_kml.services.basic_iss_pos_service import IssPos
 
 
 @patch.object(IssInteractor, '_get_footprint_coordinates')
+@patch.object(IssInteractor, '_get_current_track')
 @patch.object(IssInteractor, '_make_kml')
-def test_iss_interactor(mock_make_kml, mock_get_footprint_coordinates):
+def test_iss_interactor(mock_make_kml,
+                        mock_get_current_track,
+                        mock_get_footprint_coordinates):
+    mock_iss_track_adapter = MagicMock()
     mock_iss_pos_service = MagicMock()
     kml_template = MagicMock()
     iss_interactor = IssInteractor(
+        iss_track_adapter=mock_iss_track_adapter,
         iss_pos_service_instance=mock_iss_pos_service,
         kml_template=kml_template)
 
@@ -19,25 +24,37 @@ def test_iss_interactor(mock_make_kml, mock_get_footprint_coordinates):
     mock_pos = mock_iss_pos_service.get_pos.return_value
     mock_get_footprint_coordinates.assert_called_once_with(mock_pos)
     mock_coordinates = mock_get_footprint_coordinates.return_value
-    mock_make_kml.assert_called_once_with(mock_pos, mock_coordinates)
+    mock_get_current_track.assert_called_once()
+    mock_track = mock_get_current_track.return_value
+    mock_track.get_track_coordinates_kml.assert_called_once()
+    mock_track_coords = mock_track.get_track_coordinates_kml.return_value
+    mock_make_kml.assert_called_once_with(mock_pos,
+                                          mock_coordinates,
+                                          mock_track_coords)
 
     assert result == mock_make_kml.return_value
 
 
 def test_make_kml():
     mock_kml_template = MagicMock()
-    iss_interactor = IssInteractor(iss_pos_service_instance=None,
+    mock_adapter = MagicMock()
+    iss_interactor = IssInteractor(iss_track_adapter=mock_adapter,
+                                   iss_pos_service_instance=None,
                                    kml_template=mock_kml_template)
     mock_iss_pos = MagicMock()
     mock_coordinates = MagicMock()
+    mock_track = MagicMock()
 
-    result = iss_interactor._make_kml(mock_iss_pos, mock_coordinates)
+    result = iss_interactor._make_kml(mock_iss_pos,
+                                      mock_coordinates,
+                                      mock_track)
 
     mock_kml_template.format.assert_called_once_with(
         latitude=mock_iss_pos.latitude,
         longitude=mock_iss_pos.longitude,
         altitude=mock_iss_pos.altitude,
-        footprint=mock_coordinates)
+        footprint=mock_coordinates,
+        track=mock_track)
 
     assert result == mock_kml_template.format.return_value
 

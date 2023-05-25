@@ -183,7 +183,7 @@ def test_get_by_id_successfully(mock_json,
                                 mock_instantiate_object,
                                 mock_query_statement,
                                 make_sut):
-    mock_query_statement.return_value = [["", "", "some_obj"]]
+    mock_query_statement.return_value = [["", "some_obj"]]
     logger = Mock()
     dml_statements = Mock()
     sut = make_sut(mock_logger=logger, mock_dml_statements=dml_statements)
@@ -339,7 +339,7 @@ def test_save_to_database_with_update_statement(mock_json,
     mock_cursor = _db.cursor.return_value
     mock_cursor.execute.assert_called_once_with(
         mock_statement,
-        mock_json_str
+        (mock_json_str,)
     )
     _db.commit.assert_called_once()
 
