@@ -2,8 +2,10 @@ from functools import lru_cache
 
 from flask import Flask, Response
 
+from iss_kml.adapters.iss_track_adapter import IssTrackAdapter
 from iss_kml.interactors import IssInteractor
 from iss_kml.services import WhereTheIssAt
+from iss_kml.settings import Settings
 
 app = Flask(__name__)
 
@@ -20,7 +22,10 @@ def get_kml_template():
 def iss():
     kml_template = get_kml_template()
     iss_pos_service = WhereTheIssAt()
-    interactor = IssInteractor(iss_pos_service, kml_template)
+    iss_track_adapter = IssTrackAdapter(Settings.DB_PATH)
+    interactor = IssInteractor(iss_track_adapter,
+                               iss_pos_service,
+                               kml_template)
     kml = interactor.run()
     return Response(kml, content_type='application/vnd.google-earth.kml+xml')
 
