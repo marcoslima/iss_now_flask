@@ -142,6 +142,30 @@
 		</LineStyle>
 	</Style>
 
+	<StyleMap id="m_yt_iss_live">
+		<Pair>
+			<key>normal</key>
+			<styleUrl>#s_yt_iss_live</styleUrl>
+		</Pair>
+		<Pair>
+			<key>highlight</key>
+			<styleUrl>#s_yt_iss_live_hl</styleUrl>
+		</Pair>
+	</StyleMap>
+	<Style id="s_yt_iss_live">
+		<LineStyle>
+			<color>ffaa0000</color>
+			<width>12</width>
+		</LineStyle>
+	</Style>
+	<Style id="s_yt_iss_live_hl">
+		<LineStyle>
+			<color>ffaa0000</color>
+			<width>12</width>
+		</LineStyle>
+	</Style>
+
+
 	<Placemark>
 		<name>International Space Station</name>
 		<styleUrl>#msn_heliport</styleUrl>
@@ -189,6 +213,18 @@
 			<tessellate>1</tessellate>
 			<coordinates>
 				{track}
+			</coordinates>
+		</LineString>
+
+	</Placemark>
+	<Placemark>
+		<name>YT ISS Live</name>
+		<styleUrl>#m_yt_iss_live</styleUrl>
+		<LineString>
+			<extrude>0</extrude>
+			<tessellate>1</tessellate>
+			<coordinates>
+				{yt_iss_live}
 			</coordinates>
 		</LineString>
 	</Placemark>
