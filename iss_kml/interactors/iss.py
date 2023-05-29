@@ -99,6 +99,12 @@ class IssInteractor:
 
     @staticmethod
     def _get_yt_iss_live_coordinates(iss_track: IssTrack):
+        """
+        Footprint do iss live em https://youtu.be/itdpuGHAcpg
+        :param iss_track:
+        :return: coordenadas representando o footprint do iss live no formato
+        longitude,latitude,0 (KML)
+        """
         class Point:
             def __init__(self, longitude, latitude):
                 self.longitude = longitude
