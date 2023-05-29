@@ -35,9 +35,11 @@ class IssTrack(BasicEntity):
         super().__init__(entity_id)
         self.positions = positions
 
-    def get_track_coordinates_kml(self):
+    def get_track_coordinates_kml(self, max_points=None):
         coordinates = ''
-        for pos in self.positions:
+        if max_points is None:
+            max_points = len(self.positions)
+        for pos in self.positions[-max_points:]:
             coordinates += f'{pos.longitude},{pos.latitude},{pos.altitude} '
 
         return coordinates

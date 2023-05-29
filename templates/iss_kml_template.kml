@@ -155,13 +155,13 @@
 	<Style id="s_yt_iss_live">
 		<LineStyle>
 			<color>ffaa0000</color>
-			<width>12</width>
+			<width>4</width>
 		</LineStyle>
 	</Style>
 	<Style id="s_yt_iss_live_hl">
 		<LineStyle>
 			<color>ffaa0000</color>
-			<width>12</width>
+			<width>4</width>
 		</LineStyle>
 	</Style>
 
