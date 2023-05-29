@@ -13,7 +13,7 @@ from iss_kml.services.basic_iss_pos_service import BasicIssPosService, IssPos
 class IssInteractor:
     LIMIT_TIMESTAMP = None
     PRINT_TIMESTAMP = False
-    YT_TIME_OFFSET_SECONDS = 0
+    YT_TIME_OFFSET_SECONDS = -27
 
     def __init__(self,
                  iss_track_adapter: BasicPersistAdapter,
